@@ -7,6 +7,8 @@
             <v-col sm="6" xs="12">
                 <v-card class="pa-4">
                     <v-form ref="form">
+                        <!-- :rules uzima niz pravila koje postavljamo u script za odredjeni textfield
+                        ovako se radi validacija forme  -->
                         <v-text-field :rules="nameRules" prepend-icon="mdi-account" label="Name" v-model="formData.name"></v-text-field>
                         <v-text-field :rules="emailRules" prepend-icon="mdi-mail-ru" label="Email" v-model="formData.email"></v-text-field>
                         <v-text-field :rules="numberRules" prepend-icon="mdi-cellphone-text" label="Number" v-model="formData.number"></v-text-field>
@@ -39,7 +41,7 @@ export default {
             },
             items: ['Serbia', 'Italy', 'France'],
             nameRules: [
-                v=>v.length >= 3 || 'Najmanje 3 karaktera'
+                v=>v.length >= 3 || 'Najmanje 3 karaktera' //ako pravilo nije ispunjeno prikazace se ova poruka
             ],
             emailRules: [
                 v => /.+@.+\..+/.test(v) || 'Pravilno unesite email'
@@ -57,6 +59,7 @@ export default {
     },
     methods: {
         submit(){
+            //ako su sva pravila ispunjena submituj formu (ovde je samo consol logujem jer nemamo gde da submitujemo ali je spremna za slanje)
             if(this.$refs.form.validate()){
                 console.log(this.formData)
             }

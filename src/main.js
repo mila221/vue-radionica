@@ -5,9 +5,9 @@ import store from './store'
 import vuetify from './plugins/vuetify'
 
 require('@/assets/style.css')
+// ukljucivanje eksternog css-a
 
 Vue.config.productionTip = false
-
 
 new Vue({
   router,

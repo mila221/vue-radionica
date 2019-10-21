@@ -53,6 +53,7 @@
         <v-tab-item value="tab-2">
           <v-card flat>
             <v-card-text>
+              <!-- ucitavanje lajkovanih postova iz niza likedPosts u store -->
                <v-card v-for="post in $store.state.likedPosts" :key="post.title" class="transform-center mt-5" style="width:800px;">
                   <PostPreview :post="post"/>
               </v-card>
@@ -62,6 +63,7 @@
 
       <v-tab-item value="tab-3">
         <v-dialog v-model="dialogProject" width="600">
+          <!-- ovaj template se stavlja oko dugmeta koji ukljucuje popup -->
           <template v-slot:activator="{ on }">
             <v-btn class="transform-center my-5" color="primary" dark v-on="on">
               Add project
@@ -128,6 +130,9 @@
 <script>
 import axios from 'axios'
 import format from 'date-fns/format'
+/* npm install date-fns --save
+   kad instalirate ovo mozete da formatirate datume, vidi dole u computed 
+*/
 import PostPreview from '../components/PostPreview'
 
 export default {
@@ -155,14 +160,15 @@ export default {
         return this.newProject.date ? format(this.newProject.date, 'DD.MM.YYYY.') : ''
       },
     },
-    mounted() {
+    created() {
       this.getProjects()
       axios
           .get('https://jsonplaceholder.typicode.com/users/1')
           .then(response => (this.userInfo = response.data))
     },
      watch: {
-    // whenever posts changes, this function will run
+    // slicno kao computed, svaki put kad se doda novi projekat, zovemo fju get projects i niz projects se updejtuje
+    // tako da cim dodamo novi projekat videcemo ga 
       projects: function () {
         this.getProjects()
       }
@@ -180,18 +186,20 @@ export default {
         axios
           .get('https://test-s2s-f43b0.firebaseio.com/projects.json')
           .then( response => { 
-             var postsArray = []
+             var projectsArray = []
+             /*ovo se radi zato sto u firebase podaci nemaju id nego ovaj key koji nije direktno zakacen za podatak*/
             for(let key in response.data){
               response.data[key].id = key
-              postsArray.push(response.data[key])
+              projectsArray.push(response.data[key])
             }
-            this.projects = postsArray
+            this.projects = projectsArray
           })
       },
       deleteProject(id){
         axios
           .delete('https://test-s2s-f43b0.firebaseio.com/projects/' + id + '.json')
       },
+      //dinamicki odredjujemo boju ovog chip-a u zavisnosti od statusa
       chipClass(status){
         if(status == 'Uradjen'){
           return 'green'
@@ -201,6 +209,7 @@ export default {
           return 'red'
         }
       },
+      //dinamicki odredjujemo boju bordera u zavisnosti od statusa
        borderClass(status){
         if(status == 'Uradjen'){
           return 'green-border'

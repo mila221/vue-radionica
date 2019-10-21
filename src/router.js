@@ -1,6 +1,8 @@
 import Vue from 'vue'
 import Router from 'vue-router'
 
+/* Ovde se importuju sve stranice */
+
 import Explore from './views/Explore'
 import Home from './views/Home'
 import User from './views/User'
@@ -14,9 +16,9 @@ export default new Router({
   base: process.env.BASE_URL,
   routes: [
     {
-      path: '/',
+      path: '/', // kosa crta je putanja za home stranicu
       name: 'home',
-      component: Home
+      component: Home //za svaku rutu navodite koju komponentu ce onda da koristi (ta komponenta je stranica koju ste gore importovali)
     },
     {
       path: '/explore',
@@ -25,6 +27,10 @@ export default new Router({
     },
     {
       path: '/explore/:id',
+      /*
+      Za dinamicke stranice parametar prosledjujete ovako, ovde mu dajete naziv
+      Posle mu pristupate sa this.$route.params.id (tj this.$route.params.imeparametra)
+      */
       component: SinglePost
     },
     {

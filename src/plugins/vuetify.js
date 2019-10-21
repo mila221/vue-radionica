@@ -7,6 +7,7 @@ export default new Vuetify({
   icons: {
     iconfont: 'mdi',
   },
+  /* Ovde mozete da menjate temu tj boje, i da im dajete naziv i njih mozete da koristite u bilo kojoj str*/
   theme: {
     themes: {
       light: 

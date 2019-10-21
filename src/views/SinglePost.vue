@@ -36,6 +36,7 @@ export default {
     },
     created(){
         axios
+                                                                //skupljamo id od posta iz url-a
             .get('https://jsonplaceholder.typicode.com/posts/' + this.$route.params.id)
             .then(response=> {
                 this.post = response.data
